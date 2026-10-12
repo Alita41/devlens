@@ -75,9 +75,6 @@ The model name is deliberately configurable. Local mode remains the default so t
 
 Retrieved repository content is treated as untrusted data rather than instructions. Generated answers may only cite evidence IDs assigned by DevLens, citations are validated before returning a response, and repository mutations require explicit human approval.
 
-## Resume-safe description
-
-> Built an AI engineering knowledge assistant that ingests repositories and GitHub context, performs vector retrieval over chunked code/docs, generates source-cited RAG answers, and triages issues into structured recommendations with evaluation checks and human approval before write actions; exposed through FastAPI/CLI and Dockerized for reproducible deployment.
 
 ## License
 
