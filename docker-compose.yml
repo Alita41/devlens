@@ -2,10 +2,10 @@ services:
   devlens:
     build: .
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     environment:
       DEVLENS_LLM_PROVIDER: ${DEVLENS_LLM_PROVIDER:-local}
-      DEVLENS_OPENAI_MODEL: ${DEVLENS_OPENAI_MODEL:-gpt-6-luna}
+      DEVLENS_OPENAI_MODEL: ${DEVLENS_OPENAI_MODEL:-}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       GITHUB_TOKEN: ${GITHUB_TOKEN:-}
     volumes:

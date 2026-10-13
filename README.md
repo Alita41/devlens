@@ -149,7 +149,7 @@ Triage returns a structured object containing:
 
 The default retriever hashes token and character features into fixed-length vectors, which keeps the repository fully runnable offline. If `faiss-cpu` is installed, `VectorIndex` uses FAISS inner-product search; otherwise it transparently uses normalized NumPy vectors.
 
-This fallback is deliberately described as **deterministic vector retrieval**, not as a learned semantic embedding model.
+The hashing retriever is a reproducible lexical baseline. It is not a trained semantic embedding model.
 
 ## LangChain integration
 
