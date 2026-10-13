@@ -1,14 +1,25 @@
-from devlens.models import Chunk
-from devlens.retrieval import VectorIndex,retrieve
-from devlens.assistant import LocalProvider,answer_question,citation_coverage,validate_citations
+from __future__ import annotations
 import json
+import tempfile
+from pathlib import Path
+from devlens.ingestion.local import ingest_local
+from devlens.ingestion.chunking import chunk_documents
+from devlens.retrieval.index import VectorIndex
+from devlens.rag import answer_question
+from devlens.evals import evaluate_queries, evaluate_answer
+from devlens.llm.local import LocalProvider
+
 
 def main():
-    chunks=[Chunk("1","a","approval.py","Repository writes require explicit human approval.",1,1),Chunk("2","b","retrieval.md","Vector retrieval uses normalized hashing vectors and a NumPy fallback.",1,1)]
-    idx=VectorIndex().build(chunks)
-    cases=[("human approval repository writes","approval.py"),("vector retrieval fallback","retrieval.md")]
-    retrieval=[{"query":q,"hit":retrieve(idx,q,1)[0].chunk.path==path} for q,path in cases]
-    ans=answer_question(idx,"Where is human approval enforced?",provider=LocalProvider())
-    result={"retrieval":retrieval,"answer":{"citation_coverage":citation_coverage(ans.text),"citation_validation":validate_citations(ans.text,ans.evidence)}}
-    print(json.dumps(result,indent=2))
-if __name__=="__main__": main()
+    root = Path(__file__).resolve().parents[1]
+    docs = ingest_local(root / "eval/fixture_repo")
+    idx = VectorIndex().build(chunk_documents(docs, max_chars=800))
+    cases = json.loads((root / "eval/cases.json").read_text())
+    retrieval = evaluate_queries(idx, cases)
+    answer = answer_question(idx, "Where is human approval enforced?", top_k=3, provider=LocalProvider())
+    result = {"retrieval": retrieval, "answer": evaluate_answer(answer)}
+    print(json.dumps(result, indent=2))
+
+
+if __name__ == "__main__":
+    main()

@@ -17,10 +17,15 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+rag = ["langchain-text-splitters>=0.3,<2", "faiss-cpu>=1.8,<2"]
 dev = ["pytest>=8,<9"]
 
 [project.scripts]
 devlens = "devlens.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["devlens*"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

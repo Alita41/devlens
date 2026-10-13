@@ -1,0 +1,35 @@
+{
+  "retrieval": [
+    {
+      "query": "human approval repository writes",
+      "recall": 1.0,
+      "retrieved": [
+        "approval.py",
+        "retrieval.md"
+      ]
+    },
+    {
+      "query": "vector retrieval fallback",
+      "recall": 1.0,
+      "retrieved": [
+        "retrieval.md",
+        "approval.py"
+      ]
+    }
+  ],
+  "answer": {
+    "citation_coverage": 1.0,
+    "citation_validation": {
+      "valid": true,
+      "used": [
+        "S1",
+        "S2"
+      ],
+      "invalid": [],
+      "available": [
+        "S1",
+        "S2"
+      ]
+    }
+  }
+}

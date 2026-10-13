@@ -1,0 +1,4 @@
+[
+  {"query":"human approval repository writes","k":3,"relevant_paths":["approval.py"]},
+  {"query":"vector retrieval fallback","k":3,"relevant_paths":["retrieval.md"]}
+]

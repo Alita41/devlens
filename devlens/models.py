@@ -2,6 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass, asdict
 from typing import Any
 
+
 @dataclass(frozen=True)
 class SourceDocument:
     source_id: str
@@ -10,6 +11,7 @@ class SourceDocument:
     kind: str = "file"
     url: str | None = None
     metadata: dict[str, Any] | None = None
+
 
 @dataclass(frozen=True)
 class Chunk:
@@ -20,9 +22,14 @@ class Chunk:
     start_line: int
     end_line: int
     url: str | None = None
-    def to_dict(self): return asdict(self)
+
+    def to_dict(self):
+        return asdict(self)
+
     @classmethod
-    def from_dict(cls, data): return cls(**data)
+    def from_dict(cls, data):
+        return cls(**data)
+
 
 @dataclass(frozen=True)
 class RetrievedChunk:
@@ -31,12 +38,14 @@ class RetrievedChunk:
     rank: int
     citation_id: str
 
+
 @dataclass(frozen=True)
 class Answer:
     text: str
     citations: list[str]
     evidence: list[RetrievedChunk]
     provider: str
+
 
 @dataclass(frozen=True)
 class TriageResult:
